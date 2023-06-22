@@ -1,0 +1,36 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:org.springframework.boot.gradle.plugin:3.1.0'
+	implementation 'org.springframework.boot:org.springframework.boot.gradle.plugin:3.1.0'
+	implementation 'org.springframework.boot:spring-boot:3.1.0'
+	implementation 'org.springframework.boot:spring-boot:3.1.0'
+	implementation 'org.springframework.boot:spring-boot:3.1.0'
+	implementation 'org.springframework.boot:spring-boot:3.1.0'
+	implementation 'org.springframework.boot:spring-boot:3.1.0'
+	implementation 'org.springframework.boot:spring-boot:3.1.0'
+	implementation 'org.springframework.roo:org.springframework.roo.startlevel:2.0.0.RELEASE'
+	implementation 'org.springframework.roo:org.springframework.roo.startlevel:2.0.0.RELEASE'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.4'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
