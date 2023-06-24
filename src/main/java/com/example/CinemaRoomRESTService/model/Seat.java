@@ -1,11 +1,26 @@
 package com.example.CinemaRoomRESTService.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity(name="seat")
+@Table(name="seats")
 public class Seat {
+
+    @Id
+    @JsonIgnore
+    private int id;
+
+    @Column(name="row")
     private int row;
+
+    @Column(name="col")
     private int column;
     private int price;
+
     @JsonIgnore
     private boolean booked;
 
