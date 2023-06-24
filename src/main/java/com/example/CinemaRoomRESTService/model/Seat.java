@@ -32,11 +32,20 @@ public class Seat {
         }
     }
 
+    public void setId() {
+        String temp = "";
+        temp += this.row;
+        temp += this.column;
+        this.id = Integer.parseInt(temp);
+//        System.out.println(this.id);
+    }
+
 //    Constructors
 
     public Seat(int row, int column) {
         this.row = row;
         this.column = column;
+        setId();
     }
 
     public Seat() {
@@ -77,4 +86,11 @@ public class Seat {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
