@@ -29,6 +29,21 @@ dependencies {
 	implementation 'org.springframework.roo:org.springframework.roo.startlevel:2.0.0.RELEASE'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.4'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jdbc
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jdbc', version: '3.1.1'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.1'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-rest
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest:3.1.1'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.1.1'
+// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	implementation 'org.postgresql:postgresql:42.6.0'
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0-M1'
+
+
+
 }
 
 tasks.named('test') {

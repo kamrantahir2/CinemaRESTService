@@ -1,4 +1,4 @@
-package com.example.CinemaRoomRESTService.model;
+package com.example.CinemaRoomRESTService;
 
 public class Statistics {
     private int totalSeats;

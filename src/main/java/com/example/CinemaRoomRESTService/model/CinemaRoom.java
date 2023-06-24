@@ -1,5 +1,6 @@
 package com.example.CinemaRoomRESTService.model;
 
+import com.example.CinemaRoomRESTService.Statistics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -51,9 +52,6 @@ public class CinemaRoom {
                 stats.setBookedSeatsCount(stats.getBookedSeatsCount() + 1);
                 stats.calculatePercentageBooked();
                 earnings += seat.getPrice();
-                System.out.println("seat.getPrice() = " + seat.getPrice());
-                System.out.println("seat.getRow() = " + seat.getRow());
-                System.out.println("seat.getColumn() = " + seat.getColumn());
                 stats.setEarnings(this.earnings);
                 break;
             }

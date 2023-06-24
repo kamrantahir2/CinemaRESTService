@@ -3,7 +3,6 @@ package com.example.CinemaRoomRESTService.web;
 import com.example.CinemaRoomRESTService.Exceptions;
 import com.example.CinemaRoomRESTService.model.CinemaRoom;
 import com.example.CinemaRoomRESTService.model.Seat;
-import com.example.CinemaRoomRESTService.model.Statistics;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
