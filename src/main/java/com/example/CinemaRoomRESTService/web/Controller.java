@@ -3,6 +3,7 @@ package com.example.CinemaRoomRESTService.web;
 import com.example.CinemaRoomRESTService.Exceptions;
 import com.example.CinemaRoomRESTService.model.CinemaRoom;
 import com.example.CinemaRoomRESTService.model.Seat;
+import com.example.CinemaRoomRESTService.service.SeatService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,11 @@ public class Controller {
 
     CinemaRoom cr = new CinemaRoom(9, 9);
     ObjectMapper objectMapper = new ObjectMapper();
+    private final SeatService service;
+
+    public Controller(SeatService service) {
+        this.service = service;
+    }
 
     //    Basic GetMapping to test the root route
     @GetMapping("/seats")

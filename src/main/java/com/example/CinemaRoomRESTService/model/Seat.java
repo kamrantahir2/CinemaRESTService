@@ -37,7 +37,6 @@ public class Seat {
         temp += this.row;
         temp += this.column;
         this.id = Integer.parseInt(temp);
-//        System.out.println(this.id);
     }
 
 //    Constructors
@@ -90,7 +89,4 @@ public class Seat {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }
