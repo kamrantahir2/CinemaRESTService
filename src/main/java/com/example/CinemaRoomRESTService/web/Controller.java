@@ -13,15 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class Controller {
-
-    CinemaRoom cr = new CinemaRoom(9, 9);
-    ObjectMapper objectMapper = new ObjectMapper();
     private final SeatService service;
+
+    CinemaRoom cr;
+    ObjectMapper objectMapper = new ObjectMapper();
 
     public Controller(SeatService service) {
         this.service = service;
+        cr = new CinemaRoom(9, 9, service);
     }
 
     //    Basic GetMapping to test the root route
@@ -37,7 +40,14 @@ public class Controller {
         boolean booked = cr.purchaseSeat(seat);
         if (booked) {
             seat.determinePrice();
+            seat.setBooked(true);
+            seat.setId();
+            service.updateBooked(seat.getId(), true);
+            service.save(seat, true);
+            cr.setSeatsList((List<Seat>) service.get());
+
             String returnedJson = objectMapper.writeValueAsString(seat);
+            cr.update();
             return new ResponseEntity<>(returnedJson, HttpStatus.OK);
         } else {
             String e;
@@ -58,7 +68,12 @@ public class Controller {
     public ResponseEntity<String> returnTicket(@RequestBody Seat seat) throws JsonProcessingException {
         boolean returned = cr.returnTicket(seat);
         if (returned) {
-            return new ResponseEntity<>(HttpStatus.OK);
+//            cr = new CinemaRoom(9, 9, service);
+//            cr.setSeatsList((List<Seat>) service.getAll());
+            seat = service.save(seat, false);
+            cr.update();
+            String returnedJson = objectMapper.writeValueAsString(seat);
+            return new ResponseEntity<>(returnedJson, HttpStatus.OK);
         } else {
             Exceptions exceptions = new Exceptions("This ticket has not been booked");
             String e = objectMapper.writeValueAsString(exceptions);

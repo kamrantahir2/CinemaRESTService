@@ -21,7 +21,7 @@ public class Seat {
     private int column;
     private int price;
 
-    @JsonIgnore
+//    @JsonIgnore
     private boolean booked;
 
     public void determinePrice() {
