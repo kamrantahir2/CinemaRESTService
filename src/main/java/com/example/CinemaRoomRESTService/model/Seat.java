@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 public class Seat {
 
     @Id
-    @JsonIgnore
     private int id;
 
     @Column(name="row")

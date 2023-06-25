@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class CinemaRoom {
@@ -14,18 +16,17 @@ public class CinemaRoom {
     private int totalSeats;
     @JsonIgnore
     private List<Seat> seatsList;
-//    @JsonProperty("available_seats")
+    @JsonProperty("available_seats")
     private List<Seat> printedList;
-//    private List<Seat> seatsToPrint;
     @JsonIgnore
     private int earnings;
-
     private SeatService service;
 
 //    Methods
 
     public void update() {
-        printedList = new ArrayList<>();
+        this.printedList = new ArrayList<>();
+        this.seatsList = (List<Seat>) service.get();
         for (int i = 0; i < seatsList.size(); i++) {
             if (!seatsList.get(i).isBooked()) {
                 printedList.add(seatsList.get(i));
@@ -34,23 +35,29 @@ public class CinemaRoom {
     }
 
     public void createRoom() {
-        this.seatsList = (List<Seat>) service.getAll();
+        this.seatsList = (List<Seat>) service.get();
         int row = 0;
         int tempColumn = 0;
-        for (int i = 0; i < totalSeats; i++) {
-            Seat temp = new Seat(row + 1, tempColumn + 1);
-            seatsList.add(temp);
-            temp.setId();
-            temp.determinePrice();
-            temp.setBooked(false);
-            service.save(temp.getRow(), temp.getColumn(), false);
-            tempColumn ++;
-            if (tempColumn + 1 > total_columns) {
-                tempColumn = 0;
-                row ++;
-            }
-        }
 
+//        for (int i = 0; i < totalSeats; i++) {
+//            Seat temp = new Seat(row + 1, tempColumn + 1);
+//            seatsList.add(temp);
+//            temp.setId();
+//            temp.determinePrice();)
+//            temp.setBooked(false);
+//            service.save(temp.getRow(), temp.getColumn(), false);
+//            tempColumn ++;
+//            if (tempColumn + 1 > total_columns) {
+//                tempColumn = 0;
+//                row ++;
+//            }
+//        }
+
+    }
+
+    public List<Seat> sortList(List<Seat> list) {
+        Collections.sort(list,(Seat s1, Seat s2) -> s1.getId() - s2.getId());
+        return list;
     }
 
     public void addToList(Seat seat) {
@@ -60,8 +67,10 @@ public class CinemaRoom {
     public boolean purchaseSeat(Seat seat) {
         boolean booked = false;
 
-        for (int i = 0; i < seatsList.size(); i++) {
-            Seat currentSeat = seatsList.get(i);
+        seat.setId();
+        this.seatsList = (List<Seat>) service.get();
+        for (int i = 0; i < this.seatsList.size(); i++) {
+            Seat currentSeat = this.seatsList.get(i);
             if (currentSeat.getRow() == seat.getRow() && currentSeat.getColumn() == seat.getColumn()) {
                 booked = true;
                 seat.determinePrice();
@@ -70,6 +79,7 @@ public class CinemaRoom {
                 stats.calculatePercentageBooked();
                 earnings += seat.getPrice();
                 stats.setEarnings(this.earnings);
+                update();
                 break;
             }
         }
@@ -81,13 +91,10 @@ public class CinemaRoom {
         boolean returned = false;
 
         seat.setId();
-//        System.out.println("ROW = " + seat.getRow());
-//        System.out.println("COL = " + seat.getColumn());
-
-
         for (Seat s : seatsList) {
-//            System.out.println("ID s = " + s.getId());
-            if (seat.getRow() == s.getRow() && seat.getColumn() == s.getColumn()) {
+            s.setId();
+            seat.setId();
+            if (seat.getId() == s.getId()) {
                 seat.setBooked(false);
                 returned = true;
                 seat.determinePrice();
@@ -97,6 +104,7 @@ public class CinemaRoom {
                 stats.calculatePercentageBooked();
                 service.save(seat, false);
                 service.updateBooked(seat.getId(), false);
+                update();
                 seatsList = (List<Seat>) service.getAll();
                 break;
             }

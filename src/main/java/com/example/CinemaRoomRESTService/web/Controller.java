@@ -30,6 +30,7 @@ public class Controller {
     //    Basic GetMapping to test the root route
     @GetMapping("/seats")
     public String returnJson() throws JsonProcessingException {
+        cr.setPrintedList(cr.sortList(cr.getPrintedList()));
         return objectMapper.writeValueAsString(cr);
     }
 
@@ -48,6 +49,7 @@ public class Controller {
 
             String returnedJson = objectMapper.writeValueAsString(seat);
             cr.update();
+            cr.setPrintedList(cr.sortList(cr.getPrintedList()));
             return new ResponseEntity<>(returnedJson, HttpStatus.OK);
         } else {
             String e;
@@ -68,10 +70,9 @@ public class Controller {
     public ResponseEntity<String> returnTicket(@RequestBody Seat seat) throws JsonProcessingException {
         boolean returned = cr.returnTicket(seat);
         if (returned) {
-//            cr = new CinemaRoom(9, 9, service);
-//            cr.setSeatsList((List<Seat>) service.getAll());
             seat = service.save(seat, false);
             cr.update();
+            cr.setPrintedList(cr.sortList(cr.getPrintedList()));
             String returnedJson = objectMapper.writeValueAsString(seat);
             return new ResponseEntity<>(returnedJson, HttpStatus.OK);
         } else {

@@ -34,7 +34,6 @@ public class SeatService {
 
         if (opt.isPresent()) {
             Seat seat = opt.get();
-//            System.out.println("ID = " + seat.getId());
             seat.setBooked(bool);
         }
     }
