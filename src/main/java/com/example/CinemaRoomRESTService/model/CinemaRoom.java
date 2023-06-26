@@ -38,20 +38,22 @@ public class CinemaRoom {
         this.seatsList = (List<Seat>) service.get();
         int row = 0;
         int tempColumn = 0;
+        if (service.get().equals(new ArrayList<>())) {
+            for (int i = 0; i < totalSeats; i++) {
+                Seat temp = new Seat(row + 1, tempColumn + 1);
+                seatsList.add(temp);
+                temp.setId();
+                temp.determinePrice();
+                temp.setBooked(false);
+                service.save(temp.getRow(), temp.getColumn(), false);
+                tempColumn ++;
+                if (tempColumn + 1 > total_columns) {
+                    tempColumn = 0;
+                    row ++;
+                }
+            }
+        }
 
-//        for (int i = 0; i < totalSeats; i++) {
-//            Seat temp = new Seat(row + 1, tempColumn + 1);
-//            seatsList.add(temp);
-//            temp.setId();
-//            temp.determinePrice();)
-//            temp.setBooked(false);
-//            service.save(temp.getRow(), temp.getColumn(), false);
-//            tempColumn ++;
-//            if (tempColumn + 1 > total_columns) {
-//                tempColumn = 0;
-//                row ++;
-//            }
-//        }
 
     }
 
